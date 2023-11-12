@@ -1,0 +1,104 @@
+def display_components():
+    # Display available components
+    print("Components available for customization:")
+    
+    # Case options
+    print("a. Case:")
+    print("   A1. Compact. Price: $75.00")
+    print("   A2. Tower. Price: $150.00")
+
+    # RAM options
+    print("b. RAM:")
+    print("   B1. 8 GB. Price: $79.99")
+    print("   B2. 16 GB. Price: $149.99")
+
+    # Hard Disk Drive options
+    print("c. Main Hard Disk Drive:")
+    print("   C1. 1 TB HDD. Price: $49.99")
+    print("   C2. 2 TB HDD. Price: $89.99")
+    print("   C3. 4 TB HDD. Price: $129.99")
+
+    # Solid State Drive options
+    print("d. Solid State Drive:")
+    print("   D1. 240 GB SSD. Price: $59.99")
+    print("   D2. 480 GB SSD. Price: $119.99")
+
+    # Optical Drive options
+    print("e. Optical Drive:")
+    print("   F1. DVD/Blu-Ray Player. Price: $50.00")
+    print("   F2. DVD/Blu-Ray Re-writer. Price: $100.00")
+
+    # Second Hard Disk Drive options
+    print("f. Second Hard Disk Drive:")
+    print("   E1. 1 TB HDD. Price: $49.99")
+    print("   E2. 2 TB HDD. Price: $89.99")
+    print("   E3. 4 TB HDD. Price: $129.99")
+
+    # Operating System options
+    print("g. Operating System:")
+    print("   G1. Standard Version. Price: $100.00")
+    print("   G2. Professional Version. Price: $170.00")
+
+
+def main():
+    # Arrays to store item code, description, and price
+    item_code = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'C3', 'D1', 'D2', 'F1', 'F2', 'E1', 'E2', 'E3', 'G1', 'G2']
+    description = ['Compact', 'Tower', '8 GB', '16 GB', '1 TB HDD', '2 TB HDD', '4 TB HDD', '240 GB SSD', '480 GB SSD',
+                   'DVD/Blu-Ray Player', 'DVD/Blu-Ray Re-writer', '1 TB HDD', '2 TB HDD', '4 TB HDD', 'Standard Version',
+                   'Professional Version']
+    price = [75.00, 150.00, 79.99, 149.99, 49.99, 89.99, 129.99, 59.99, 119.99, 50.00, 100.00, 49.99, 89.99, 129.99, 100.00, 170.00]
+
+    # Selected components by the customer
+    selected_components = []
+
+    # Display available components
+    display_components()
+
+    # Customer selection for Case, RAM, and Main HDD (Basic components)
+    for category in ['Case', 'RAM', 'Main Hard Disk Drive']:
+        component_code = input(f"Enter the item code for {category}: ").upper()
+        selected_components.append(component_code)
+
+    # Additional components selection
+    additional_choice = input("Do you want to purchase additional items from other categories? (y/n): ").lower()
+    while additional_choice == 'y':
+        additional_component_code = input("Enter the item code for the additional component: ").upper()
+        selected_components.append(additional_component_code)
+        additional_choice = input("Do you want to add more additional items? (y/n): ").lower()
+
+    # Calculate total price
+    total_price = 200.00  # Basic set of components
+
+    for component_code in selected_components:
+        index = item_code.index(component_code)
+        total_price += price[index]
+
+    # Apply discounts
+    discount_percentage = 0
+    if len(selected_components) > 3:  # 3 for the basic components (Case, RAM, Main Hard Disk Drive)
+        if len(selected_components) == 4:  # Only one additional item
+            discount_percentage = 5
+        elif len(selected_components) > 4:  # Two or more additional items
+            discount_percentage = 10
+
+        discount_amount = (discount_percentage / 100) * total_price
+        discounted_price = total_price - discount_amount
+
+        # Display the chosen items and the price of the computer
+        print("\nChosen items:")
+        for component_code in selected_components:
+            index = item_code.index(component_code)
+            print(f"{description[index]} ($ {price[index]:.2f})")
+
+        print(f"\nTotal Price before discount: $ {total_price:.2f}")
+        print(f"Discount applied: {discount_percentage}%")
+        print(f"Amount saved: $ {discount_amount:.2f}")
+        print(f"Total Price after discount: $ {discounted_price:.2f}")
+    else:
+        print("You must purchase at least one additional component with the basic components for discounts to apply.")
+
+
+if __name__ == "__main__":
+    main()
+
+
